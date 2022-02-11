@@ -156,7 +156,7 @@ am__libimagecore_la_SOURCES_DIST = imagecore.cpp formats/reader.cpp \
 	image/image.cpp image/kernel.cpp image/internal/filters.cpp \
 	image/internal/filters_intrinsics.cpp \
 	image/internal/conversions.cpp \
-	image/internal/platform_support.cpp image/internal/sse.cpp \
+	image/internal/platform_support.cpp image/internal/neon.cpp \
 	image/resizecrop.cpp image/tiledresize.cpp \
 	image/colorspace.cpp image/rgba.cpp image/yuv.cpp \
 	image/yuv_semiplanar.cpp image/grayscale.cpp \
@@ -189,7 +189,7 @@ am_libimagecore_la_OBJECTS = libimagecore_la-imagecore.lo \
 	image/internal/libimagecore_la-filters_intrinsics.lo \
 	image/internal/libimagecore_la-conversions.lo \
 	image/internal/libimagecore_la-platform_support.lo \
-	image/internal/libimagecore_la-sse.lo \
+	image/internal/libimagecore_la-neon.lo \
 	image/libimagecore_la-resizecrop.lo \
 	image/libimagecore_la-tiledresize.lo \
 	image/libimagecore_la-colorspace.lo \
@@ -443,7 +443,7 @@ libimagecore_la_SOURCES = imagecore.cpp formats/reader.cpp \
 	image/image.cpp image/kernel.cpp image/internal/filters.cpp \
 	image/internal/filters_intrinsics.cpp \
 	image/internal/conversions.cpp \
-	image/internal/platform_support.cpp image/internal/sse.cpp \
+	image/internal/platform_support.cpp image/internal/neon.cpp \
 	image/resizecrop.cpp image/tiledresize.cpp \
 	image/colorspace.cpp image/rgba.cpp image/yuv.cpp \
 	image/yuv_semiplanar.cpp image/grayscale.cpp \
@@ -598,7 +598,7 @@ image/internal/libimagecore_la-conversions.lo:  \
 image/internal/libimagecore_la-platform_support.lo:  \
 	image/internal/$(am__dirstamp) \
 	image/internal/$(DEPDIR)/$(am__dirstamp)
-image/internal/libimagecore_la-sse.lo: image/internal/$(am__dirstamp) \
+image/internal/libimagecore_la-neon.lo: image/internal/$(am__dirstamp) \
 	image/internal/$(DEPDIR)/$(am__dirstamp)
 image/libimagecore_la-resizecrop.lo: image/$(am__dirstamp) \
 	image/$(DEPDIR)/$(am__dirstamp)
@@ -718,7 +718,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@image/internal/$(DEPDIR)/libimagecore_la-filters.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@image/internal/$(DEPDIR)/libimagecore_la-filters_intrinsics.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@image/internal/$(DEPDIR)/libimagecore_la-platform_support.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@image/internal/$(DEPDIR)/libimagecore_la-sse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@image/internal/$(DEPDIR)/libimagecore_la-neon.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -908,12 +908,12 @@ image/internal/libimagecore_la-platform_support.lo: image/internal/platform_supp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libimagecore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o image/internal/libimagecore_la-platform_support.lo `test -f 'image/internal/platform_support.cpp' || echo '$(srcdir)/'`image/internal/platform_support.cpp
 
-image/internal/libimagecore_la-sse.lo: image/internal/sse.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libimagecore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT image/internal/libimagecore_la-sse.lo -MD -MP -MF image/internal/$(DEPDIR)/libimagecore_la-sse.Tpo -c -o image/internal/libimagecore_la-sse.lo `test -f 'image/internal/sse.cpp' || echo '$(srcdir)/'`image/internal/sse.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) image/internal/$(DEPDIR)/libimagecore_la-sse.Tpo image/internal/$(DEPDIR)/libimagecore_la-sse.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='image/internal/sse.cpp' object='image/internal/libimagecore_la-sse.lo' libtool=yes @AMDEPBACKSLASH@
+image/internal/libimagecore_la-neon.lo: image/internal/neon.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libimagecore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT image/internal/libimagecore_la-neon.lo -MD -MP -MF image/internal/$(DEPDIR)/libimagecore_la-neon.Tpo -c -o image/internal/libimagecore_la-neon.lo `test -f 'image/internal/neon.cpp' || echo '$(srcdir)/'`image/internal/neon.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) image/internal/$(DEPDIR)/libimagecore_la-neon.Tpo image/internal/$(DEPDIR)/libimagecore_la-neon.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='image/internal/neon.cpp' object='image/internal/libimagecore_la-neon.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libimagecore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o image/internal/libimagecore_la-sse.lo `test -f 'image/internal/sse.cpp' || echo '$(srcdir)/'`image/internal/sse.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libimagecore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o image/internal/libimagecore_la-neon.lo `test -f 'image/internal/neon.cpp' || echo '$(srcdir)/'`image/internal/neon.cpp
 
 image/libimagecore_la-resizecrop.lo: image/resizecrop.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libimagecore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT image/libimagecore_la-resizecrop.lo -MD -MP -MF image/$(DEPDIR)/libimagecore_la-resizecrop.Tpo -c -o image/libimagecore_la-resizecrop.lo `test -f 'image/resizecrop.cpp' || echo '$(srcdir)/'`image/resizecrop.cpp
